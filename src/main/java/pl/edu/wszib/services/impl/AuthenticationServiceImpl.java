@@ -8,8 +8,11 @@ import pl.edu.wszib.services.IAuthenticationService;
 
 public class AuthenticationServiceImpl implements IAuthenticationService {
 
-    @Autowired
     IUserDAO userDAO;
+
+    public AuthenticationServiceImpl(IUserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     public boolean authenticateUser(User user) {

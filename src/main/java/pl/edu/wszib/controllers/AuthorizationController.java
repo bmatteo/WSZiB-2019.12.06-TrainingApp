@@ -1,6 +1,7 @@
 package pl.edu.wszib.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import pl.edu.wszib.services.IUserService;
 
 import java.util.List;
 
+@Controller
 public class AuthorizationController {
 
     @Autowired
@@ -23,10 +25,16 @@ public class AuthorizationController {
         return "loginForm";
     }
 
-    @RequestMapping(value = "/loginPage", method = RequestMethod.POST)
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public String authenticateUser(@ModelAttribute("userModel") User user, Model model) {
-        model.addAttribute("errorMessage", "złe dane !!!");
-        model.addAttribute("userModel", new User());
-        return "loginForm";
+        boolean authResult = this.authenticationService.authenticateUser(user);
+
+        if(authResult) {
+            return "main";
+        } else {
+            model.addAttribute("errorMessage", "złe dane !!!");
+            model.addAttribute("userModel", new User());
+            return "loginForm";
+        }
     }
 }

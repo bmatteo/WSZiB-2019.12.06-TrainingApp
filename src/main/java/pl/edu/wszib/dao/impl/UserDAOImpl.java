@@ -9,8 +9,11 @@ import java.util.List;
 
 public class UserDAOImpl implements IUserDAO {
 
-    @Autowired
     SessionFactory sessionFactory;
+
+    public UserDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void saveUser(User user) {
@@ -34,7 +37,7 @@ public class UserDAOImpl implements IUserDAO {
     public User getUserByLogin(String login) {
         Session session = this.sessionFactory.openSession();
         User user = (User) session
-                .createQuery("FROM pl.edu.wszib.model.User WHERE login = " + login)
+                .createQuery("FROM pl.edu.wszib.model.User WHERE login = '" + login + "'")
                 .uniqueResult();
         session.close();
         return user;
