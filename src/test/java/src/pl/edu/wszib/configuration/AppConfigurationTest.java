@@ -3,6 +3,7 @@ package src.pl.edu.wszib.configuration;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pl.edu.wszib.controllers.AuthorizationController;
 import pl.edu.wszib.dao.IUserDAO;
 import pl.edu.wszib.dao.impl.UserDAOImpl;
 import pl.edu.wszib.services.IAuthenticationService;
@@ -14,10 +15,10 @@ import src.pl.edu.wszib.dao.impl.UserDAOImplStub;
 @Configuration
 public class AppConfigurationTest {
 
-    @Bean
+    /*@Bean
     public IUserDAO userDAO() {
         return new UserDAOImplStub();
-    }
+    }*/
 
     @Bean
     public IAuthenticationService authenticationService(IUserDAO userDAO) {
@@ -27,5 +28,10 @@ public class AppConfigurationTest {
     @Bean
     public IUserService userService(IUserDAO userDAO) {
         return new UserServiceImpl(userDAO);
+    }
+
+    @Bean
+    public AuthorizationController authorizationController() {
+        return new AuthorizationController();
     }
 }

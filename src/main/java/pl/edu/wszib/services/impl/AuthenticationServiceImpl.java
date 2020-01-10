@@ -25,4 +25,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
         return false;
     }
+
+    @Override
+    public boolean cos() {
+        return true;
+    }
 }
